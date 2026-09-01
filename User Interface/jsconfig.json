@@ -1,0 +1,13 @@
+{
+    "compilerOptions":{
+        "baseUrl": ".",
+        "paths": {
+            "@/*": ["./src/*"],
+            "@utils/*": ["./src/utils/*"],
+            "@assets/*": ["./src/assets/*"],
+            "@components/*": ["./src/components/*"],
+        },
+        "ignoreDeprecations": "6.0"
+    },
+    "include": ["src/**/*"]
+}
