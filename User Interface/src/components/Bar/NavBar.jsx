@@ -10,7 +10,7 @@ import profile_image from "@assets/images/senior-woman-doctor.png"
 
 import NavItem from "@components/atomic/Nav/NavItem";
 
-export default function NavBar(){
+export default function NavBar({showFullContent=false}){
     let navItems = [
         {icon: <img src={home} alt="Home" />, text: "Overview", href: "/", active:false},
         {icon: <img src={group} alt="Patients" />, text: "Patients", href: "/patients", active:true},
@@ -23,24 +23,26 @@ export default function NavBar(){
             <div className="banner">
                 <img src={logo} alt="site banner w-[210.58px] h-12"/>
             </div>
-            <ul className="nav-items flex items-center gap-6">
-                {navItems.map((item, index) => (
-                    <NavItem key={index} icon={item.icon} text={item.text} href={item.href} active={item.active}/>
-                ))}
-            </ul>
-            <div className="accessibility divide-gray-100 flex items-center gap-4">
-                <div className="profile flex items-center gap-2">
-                    <img src={profile_image} alt="profile" className="w-10 h-10"/>
-                    <div className="title">
-                        <p className="text-gray-800 text-sm font-bold">Dr. Josse Simmons.</p>
-                        <p className="text-gray-400 text-xs capitalize">general practitioner</p>
+            { showFullContent ? <>
+                <ul className="nav-items flex items-center gap-6">
+                    {navItems.map((item, index) => (
+                        <NavItem key={index} icon={item.icon} text={item.text} href={item.href} active={item.active}/>
+                    ))}
+                </ul>
+                <div className="accessibility divide-gray-100 flex items-center gap-4">
+                    <div className="profile flex items-center gap-2">
+                        <img src={profile_image} alt="profile" className="w-10 h-10"/>
+                        <div className="title">
+                            <p className="text-gray-800 text-sm font-bold">Dr. Josse Simmons.</p>
+                            <p className="text-gray-400 text-xs capitalize">general practitioner</p>
+                        </div>
+                    </div>
+                    <div className="settings flex items-center gap-2">
+                        <img src={settings} alt="settings" className="w-[`8.94px] h-5"/>
+                        <img src={more_vert} alt="more" className="w-6 h-5"/>
                     </div>
                 </div>
-                <div className="settings flex items-center gap-2">
-                    <img src={settings} alt="settings" className="w-[`8.94px] h-5"/>
-                    <img src={more_vert} alt="more" className="w-6 h-5"/>
-                </div>
-            </div>
+            </> : null }
         </nav>
     )
 }
