@@ -20,5 +20,13 @@ export default defineConfig({
       "@assets": path.resolve(__dirname, "./src/assets"),
       "@components": path.resolve(__dirname, "./src/components"),
     }
-  }
+  },
 })
+
+/*   server:{
+    proxy:{
+      '/app': {
+        target: "http://localhost:8000"
+      }
+    }
+  } */

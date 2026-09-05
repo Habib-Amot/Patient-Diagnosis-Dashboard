@@ -1,3 +1,5 @@
+from typing import Any
+
 from django.db import models
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 
@@ -9,6 +11,9 @@ from django.contrib.auth.models import AbstractUser, BaseUserManager
 
 # defining the custom user manager object for the custom user model
 class UserManager(BaseUserManager):
+    def create(self, **kwargs: Any) -> Any:
+        return self.create_user(**kwargs)
+
     def create_user(self, email, username, password=None, **kwargs):
         if not email:
             raise ValueError("Email must be set for users")
@@ -17,6 +22,7 @@ class UserManager(BaseUserManager):
         user_model = self.model
         email = self.normalize_email(email=email)
         user = user_model(email=email, username=username, **kwargs)
+
         user.set_password(password)
         user.save(using=self._db)
         return user
@@ -41,4 +47,7 @@ class UserModel(AbstractUser):
     REQUIRED_FIELDS = ["username", "first_name", "last_name"]
 
     objects = UserManager()
+
+    def __str__(self) -> str:
+        return f"({self.username}) {self.email} "
 
