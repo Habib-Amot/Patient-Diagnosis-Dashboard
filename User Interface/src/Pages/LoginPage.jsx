@@ -2,12 +2,14 @@ import { loginUser } from "@/api/auth"
 import NavBar from "@/components/Bar/NavBar"
 import AuthContext from "@/context/Auth/contexts"
 import { useContext, useState } from "react"
+import { useNavigate } from "react-router-dom"
 
 const LoginPage = () => {
+  let navigate = useNavigate()
   let [ userEmail, setUserEmail ] = useState("")
-  let [ userPassword, setUserPassword] = useState("")
   let [ authError, setAuthError ] = useState('')
-  let { setIsLoggedIn } = useContext(AuthContext)
+  let { setIsLoggedIn} = useContext(AuthContext)
+  let [ userPassword, setUserPassword] = useState("")
 
   function handleUserInput(event, type){
     let value = event.target.value
@@ -17,9 +19,11 @@ const LoginPage = () => {
   async function handleSubmit(){
     try{
       let response = await loginUser(userEmail, userPassword)
-      if(response.status == "SUCCESS"){
-        console.log(response.detail)
+      if(response.STATUS == "login successful".toUpperCase()){
         setIsLoggedIn(true)
+        window.accessToken = response.details.message.token.access
+        localStorage.setItem("refreshToken", response.details.message.token.refresh)
+        navigate("/home")
       }else{
         setAuthError(response.detail)
       }

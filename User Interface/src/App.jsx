@@ -10,10 +10,13 @@ import UserContextProvider from '@/context/User/UserContextProvider'
 function App() {
   let router = createBrowserRouter(
     createRoutesFromElements(
-        <Route path='/' element={<ProtectedRoute><PatientsPage/></ProtectedRoute>}>
-          <Route path='app' element={<ProtectedRoute><PatientsPage/></ProtectedRoute>}/>
-          <Route path='app/login' element={<LoginPage/>}/>
-        </Route>
+      <Route>
+        <Route path='/' element={<ProtectedRoute><PatientsPage/></ProtectedRoute>}/>
+
+        <Route path='/home' element={<ProtectedRoute><PatientsPage/></ProtectedRoute>}/>
+
+        <Route path='/app/login' element={<LoginPage/>}/>
+      </Route>
     )
   )
 
@@ -22,7 +25,6 @@ function App() {
       <UserContextProvider>
         <RouterProvider router={router}/>
       </UserContextProvider>
-      <LoginPage/>
     </AuthContextProvider>
   )
 }

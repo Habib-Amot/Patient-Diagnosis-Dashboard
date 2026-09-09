@@ -1,5 +1,3 @@
-import getCSRFCookie from "@/utils/getCookies";
-
 export const loginUser = async function(email, password){
     let authenticationEndpoint = 'http://127.0.0.1:8000/app/api/auth';
     try{
@@ -7,9 +5,7 @@ export const loginUser = async function(email, password){
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "X-CSRFToken": await getCSRFCookie()
             },
-            credentials: 'include',
             body: JSON.stringify({email:email, password:password}),
             mode: 'cors',
         })
