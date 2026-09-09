@@ -7,7 +7,6 @@ export const loginUser = async function(email, password){
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({email:email, password:password}),
-            mode: 'cors',
         })
         if(response.ok){
             let data = await response.json()

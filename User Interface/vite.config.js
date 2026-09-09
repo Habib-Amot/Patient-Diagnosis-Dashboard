@@ -21,12 +21,12 @@ export default defineConfig({
       "@components": path.resolve(__dirname, "./src/components"),
     }
   },
-})
-
-/*   server:{
+  server:{
     proxy:{
       '/app': {
         target: "http://localhost:8000"
       }
     }
-  } */
+  }
+})
+
