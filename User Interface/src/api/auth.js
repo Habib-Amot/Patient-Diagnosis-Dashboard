@@ -1,5 +1,5 @@
 export const loginUser = async function(email, password){
-    let authenticationEndpoint = 'http://127.0.0.1:8000/app/api/auth';
+    let authenticationEndpoint = '/app/api/auth';
     try{
         let response = await fetch(authenticationEndpoint, {
             method: "POST",

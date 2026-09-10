@@ -9,13 +9,26 @@ from ..services.auth import AuthenticationError, user_authentication_service
 @api_view(["POST"])
 def user_authentication(request):
     try:
-        response = user_authentication_service(request, request.data)
-        return Response(data={
+        refresh_token, access_token, username = user_authentication_service(request, request.data)
+
+        response = Response(data={
             "STATUS":"LOGIN SUCCESSFUL",
             "details":{
-                "message":response
+                "message": "user authenticated successfully",
+                "access_token": str(access_token),
+                "user": username
             }
         }, status=status.HTTP_200_OK)
+
+        # storing the refresh token in the session as an httpOnly cookie
+        response.set_cookie(
+            key="refresh_token",
+            value=str(refresh_token),
+            httponly=True,
+            secure=True,
+            samesite="Lax"
+        )
+        return response
     
     except AuthenticationError:
         return Response(data={

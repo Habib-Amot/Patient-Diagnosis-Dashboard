@@ -21,12 +21,7 @@ def user_authentication_service(request, user_data):
             refresh_token = RefreshToken.for_user(user)
             access_token = refresh_token.access_token
 
-            return {
-                "token": {
-                    "refresh": str(refresh_token),
-                    "access": str(access_token),
-                },
-                "user":user.username
-            }
+            return refresh_token, access_token, user.username
+            
     raise AuthenticationError
     

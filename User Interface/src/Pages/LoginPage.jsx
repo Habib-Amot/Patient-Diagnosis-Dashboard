@@ -21,8 +21,8 @@ const LoginPage = () => {
       let response = await loginUser(userEmail, userPassword)
       if(response.STATUS == "login successful".toUpperCase()){
         setIsLoggedIn(true)
-        window.accessToken = response.details.message.token.access
-        localStorage.setItem("refreshToken", response.details.message.token.refresh)
+        
+        
         navigate("/home")
       }else{
         setAuthError(response.detail)
