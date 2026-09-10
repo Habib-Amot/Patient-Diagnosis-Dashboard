@@ -28,8 +28,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'core',
-    'corsheaders'
+    'rest_framework',
+    'rest_framework_simplejwt',
+    'corsheaders',
+    'core'
 ]
 
 MIDDLEWARE = [
@@ -110,14 +112,19 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-# CSRF SETTINGS
-CSRF_TRUSTED_ORIGINS = [
-    "http://localhost:5173"
-]
-CSRF_COOKIE_SAMESITE = "None"
+# REST FRAMEWORK CONFIGURATIONS
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES':[
+        'rest_framework_simplejwt.authentication.JWTAuthentication'
+    ],
+    'DEFAULT_RENDERER_CLASSES':[
+        'rest_framework.renderers.JSONRenderer'
+    ]
+}
+
+
 
 # CORS SETTING
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173"
 ]
-CORS_ALLOW_CREDENTIALS = True

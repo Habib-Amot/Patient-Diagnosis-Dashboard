@@ -51,3 +51,42 @@ class UserModel(AbstractUser):
     def __str__(self) -> str:
         return f"({self.username}) {self.email} "
 
+
+
+class PatientDiagnosisReadings(models.Model):
+    month = models.CharField(max_length=15)
+    year = models.SmallIntegerField()
+    blood_pressure = models.JSONField()
+    heart_rate = models.JSONField()
+    respiratory_rate = models.JSONField()
+    temperature = models.JSONField()
+
+
+
+class PatientDiagnosisList(models.Model):
+    name = models.CharField(max_length=200)
+    description = models.TextField()
+    status = models.CharField(max_length=100)
+
+
+class PatientLabResult(models.Model):
+    lab_result = models.CharField(max_length=300)
+
+
+class PatientProfile(models.Model):
+    user = models.OneToOneField(UserModel, on_delete=models.CASCADE)
+    gender = models.CharField(max_length=30)
+    age = models.SmallIntegerField(null=False, blank=False)
+    profile_picture = models.ImageField()
+    date_of_birth = models.DateField()
+    phone_number = models.CharField(max_length=40)
+    emergency_contact = models.CharField(max_length=40)
+    insurance_type = models.CharField(max_length=100)
+
+    diagnosis_readings = models.ForeignKey(PatientDiagnosisReadings, on_delete=models.DO_NOTHING )
+
+    diagnosis_list = models.ForeignKey(PatientDiagnosisList, on_delete=models.DO_NOTHING)
+
+    lab_results = models.ForeignKey(PatientLabResult, on_delete=models.DO_NOTHING)
+
+
