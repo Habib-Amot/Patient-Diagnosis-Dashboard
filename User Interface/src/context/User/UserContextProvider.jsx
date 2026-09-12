@@ -2,10 +2,10 @@ import { useState } from "react"
 import UserContext from "./context"
 
 const UserContextProvider = ({children}) => {
-    let [ userData, setUserData ] = useState({})
+    let [ userName, setUserName ] = useState({})
 
   return (
-    <UserContext.Provider value={{userData, setUserData}}>
+    <UserContext.Provider value={{userName, setUserName}}>
         {children}
     </UserContext.Provider>
   )

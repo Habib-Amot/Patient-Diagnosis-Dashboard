@@ -3,12 +3,14 @@ import NavBar from "@/components/Bar/NavBar"
 import AuthContext from "@/context/Auth/contexts"
 import { useContext, useState } from "react"
 import { useNavigate } from "react-router-dom"
+import UserContext from "@/context/User/context"
 
 const LoginPage = () => {
   let navigate = useNavigate()
   let [ userEmail, setUserEmail ] = useState("")
   let [ authError, setAuthError ] = useState('')
   let { setIsLoggedIn} = useContext(AuthContext)
+  let { setUsername } = useContext(UserContext)
   let [ userPassword, setUserPassword] = useState("")
 
   function handleUserInput(event, type){
@@ -20,9 +22,14 @@ const LoginPage = () => {
     try{
       let response = await loginUser(userEmail, userPassword)
       if(response.STATUS == "login successful".toUpperCase()){
-        setIsLoggedIn(true)
+        let accessToken = response.details.access_token
+        localStorage.setItem("access_token", accessToken)
+        let username = response.details.user
         
+        setUsername(username)  // set the username in the context
+        setIsLoggedIn(true)  // set the login state in the context
         
+        // navigate to the home page
         navigate("/home")
       }else{
         setAuthError(response.detail)
