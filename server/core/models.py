@@ -51,6 +51,10 @@ class UserModel(AbstractUser):
     def __str__(self) -> str:
         return f"({self.username}) {self.email} "
 
+    @property
+    def name(self):
+        return f"{self.first_name} {self.last_name}"
+
 
 
 class PatientDiagnosisReadings(models.Model):
@@ -61,6 +65,8 @@ class PatientDiagnosisReadings(models.Model):
     respiratory_rate = models.JSONField()
     temperature = models.JSONField()
 
+    patient = models.ForeignKey('PatientProfile', on_delete=models.SET_NULL, null=True, blank=True)
+
 
 
 class PatientDiagnosisList(models.Model):
@@ -68,13 +74,20 @@ class PatientDiagnosisList(models.Model):
     description = models.TextField()
     status = models.CharField(max_length=100)
 
+    patient = models.ForeignKey('PatientProfile', on_delete=models.SET_NULL, null=True, blank=True)
+
 
 class PatientLabResult(models.Model):
     lab_result = models.CharField(max_length=300)
 
+    patient = models.ForeignKey('PatientProfile', on_delete=models.SET_NULL, null=True, blank=True)
+
+    def __str__(self) -> str:
+        return self.lab_result
+
 
 class PatientProfile(models.Model):
-    user = models.OneToOneField(UserModel, on_delete=models.CASCADE)
+    user = models.OneToOneField(UserModel, on_delete=models.CASCADE, related_name="profile")
     gender = models.CharField(max_length=30)
     age = models.SmallIntegerField(null=False, blank=False)
     profile_picture = models.ImageField()
@@ -83,10 +96,5 @@ class PatientProfile(models.Model):
     emergency_contact = models.CharField(max_length=40)
     insurance_type = models.CharField(max_length=100)
 
-    diagnosis_readings = models.ForeignKey(PatientDiagnosisReadings, on_delete=models.DO_NOTHING )
-
-    diagnosis_list = models.ForeignKey(PatientDiagnosisList, on_delete=models.DO_NOTHING)
-
-    lab_results = models.ForeignKey(PatientLabResult, on_delete=models.DO_NOTHING)
 
 
