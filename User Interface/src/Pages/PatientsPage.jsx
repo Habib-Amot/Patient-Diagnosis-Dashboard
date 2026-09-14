@@ -4,20 +4,18 @@ import PatientDiagnosis from '@components/PatientDiagnosis'
 import PatientDetails from '@components/PatientDetails'
 import LabResults from '@components/LabResults'
 import getPatientData from '@utils/patient-data';
-import { useEffect, useState, useContext } from 'react'
+import { useEffect, useState } from 'react'
 import DiagnosticList from '@components/DiagnosticList'
 
-import AuthContext from '@/context/Auth/contexts'
+// import AuthContext from '@/context/Auth/contexts'
 
 const PatientsPage = () => {
-  let { isLoggedIn } = useContext(AuthContext)
+  // let { isLoggedIn } = useContext(AuthContext)
 
   let [patients, setPatients] = useState({})
   let [isLoading, setIsLoading] = useState(true)
   let [error, setError] = useState(false)
   let [currentPatient, setCurrentPatient] = useState({})
-
-  console.log(isLoggedIn)
 
   useEffect(()=>{
     let fetchData = async ()=>{

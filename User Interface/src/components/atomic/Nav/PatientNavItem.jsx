@@ -3,6 +3,7 @@ import more_horiz from "@assets/icons/more_horiz.svg"
 
 export default function PatientNavItem({patient, isSelected, setPatient, setSelectedPatientId, id}) {
     let {profile_picture, name, gender, age} = patient;
+    console.log(patient)
 
     useEffect(() => {
         isSelected && setPatient(patient);

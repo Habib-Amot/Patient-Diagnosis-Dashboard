@@ -1,9 +1,19 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import search from "@assets/icons/search.svg";
 import PatientNavItem from "@components/atomic/Nav/PatientNavItem";
+import getPatients from "@/api/users";
 
 export default function SideBar({patients, setPatient, isLoading, error}) {
     let [selectedPatientId, setSelectedPatientId] = useState(4);
+    let [ allPatients, setAllPatients ] = useState([])
+
+    useEffect(()=>{
+        let fetchUser = async () => {
+            let patients = await getPatients();
+            setAllPatients(patients)
+        }
+        fetchUser()
+    }, [])
 
     return (
         <div className="py-3 px-4 rounded-2xl bg-white h-full max-w-100 max-h-261.25 overflow-y-scroll">
@@ -13,7 +23,7 @@ export default function SideBar({patients, setPatient, isLoading, error}) {
             </div>
             {error ? <p className="text-red-500 mt-4">Error fetching patient data.</p> : isLoading ? <p className="mt-4">Loading...</p> : patients.length === 0 ? <p className="mt-4">No patients available.</p> :
                 <div className="mt-4 flex flex-col">
-                    {patients.map((patient, index) => (
+                    {allPatients.map((patient, index) => (
                         <PatientNavItem key={index} 
                         patient={patient} id={index} isSelected={selectedPatientId === index} setSelectedPatientId={setSelectedPatientId} setPatient={setPatient}
                     />

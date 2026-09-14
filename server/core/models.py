@@ -96,5 +96,7 @@ class PatientProfile(models.Model):
     emergency_contact = models.CharField(max_length=40)
     insurance_type = models.CharField(max_length=100)
 
-
+    @property
+    def name(self):
+        return self.user.name
 

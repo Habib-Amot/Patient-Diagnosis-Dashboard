@@ -6,6 +6,7 @@ export default async function responseInterceptor(api){
     let responseErrorInterceptor = async (error) => {
         let originalRequest = error.config;
         // checking if the request has not been retried before
+        console.log("intercepting response")
         if(!originalRequest._retry && error.response?.status == 401){
             originalRequest._retry = true;
             let newToken =  await getAccessToken()

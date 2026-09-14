@@ -40,31 +40,30 @@ const LoginPage = () => {
     }
   }
   return (
-    <div>
+    <div className="flex flex-col h-full">
       <NavBar/>
-      <div className="flex flex-col justify-center items-center">
+      <div className="flex flex-col justify-center items-center grow h-100">
         <p>{authError}</p>
-        <div>
-          <div className="w-full">
-            <h2>Welcome Back</h2>
+        <div className="max-w-200 w-120 h-120 flex flex-col items-center gap-5 bg-white py-10 px-8 rounded-md">
+          <div className="w-full flex items-center justify-center">
+            <h2 className="font-semibold text-3xl mb-5">Welcome Back</h2>
           </div>
-          <div className="input-section flex flex-col">
+          <div className="input-section flex flex-col gap-3 w-full">
             <p className="label">Email</p>
-            <input type="email" name="email" placeholder="Enter your email" value={userEmail} onChange={(event)=>handleUserInput(event, 'email')}/>
+            <input className="border outline-0 border-gray-200 h-12 p-2 rounded-sm text-sm" type="email" name="email" placeholder="Enter your email" value={userEmail} onChange={(event)=>handleUserInput(event, 'email')}/>
           </div>
 
-          <div className="input-section flex flex-col">
+          <div className="input-section flex flex-col gap-3 w-full">
             <p className="label">Password</p>
-            <input type="password" name="password" 
+            <input className="border outline-0 border-gray-200 h-12 p-2 rounded-sm text-sm" type="password" name="password" 
             placeholder="Enter your password" value={userPassword} onChange={(event)=> handleUserInput(event, "password")}/>
           </div>
 
-          <p>
+          <button onClick={handleSubmit} className="w-full  h-12 bg-blue-600 text-white rounded-md">Continue</button>
+          <p className="text-sm flex gap-2">
             Forgot password ?
-            <a href="#">contact admin</a>
+            <a href="#" className="text-blue-600">contact admin</a>
           </p>
-
-          <button onClick={handleSubmit}>Continue</button>
 
         </div>
       </div>
